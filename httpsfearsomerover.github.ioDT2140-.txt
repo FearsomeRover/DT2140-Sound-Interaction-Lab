@@ -1,6 +1,9 @@
+
+Somaiya Abdulrahman
+Gergo Bujdoso
 https://fearsomerover.github.io/DT2140-Sound-Interaction-Lab
 
-NUMBER 		ACTION 						SOUND
-1		Bouncing the ball on a racket  			Popping sound as the ball hits the racket
-2 		Playing the violin				Violin sounds
-3 		Opening the door handle				Door creaking sounds
+NUMBER 		ACTION 					SOUND
+1		Bouncing the ball on a racket  		Popping sound as the ball hits the racket
+2 		Playing the violin			Violin sounds, we would like to add more frequency modulation based on the angle and speed of the movement
+3 		Opening the door handle			Door creaking sounds
