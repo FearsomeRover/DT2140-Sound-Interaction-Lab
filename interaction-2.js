@@ -55,13 +55,8 @@ function accelerationChange(accx, accy, accz) {
 }
 
 function rotationChange(rotx, roty, rotz) {
-  if (rotz > 340) {
-    if (!soundPlaying) {
-      playAudio();
-      soundPlaying = true;
-    }
-  } else {
-    soundPlaying = false;
+  if (rotx > 130 || rotx < 140 || roty > 80 || roty < 90) {
+    playAudio();
   }
 }
 
@@ -113,6 +108,10 @@ function playAudio() {
   setTimeout(() => {
     dspNode.setParamValue("/englishBell/gate", 0);
   }, 100);
+}
+
+function stopAudio() {
+  dspNode.setParamValue("/englishBell/gate", 0);
 }
 
 //==========================================================================================
