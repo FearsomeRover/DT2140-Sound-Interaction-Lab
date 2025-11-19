@@ -55,9 +55,11 @@ function accelerationChange(accx, accy, accz) {
 }
 
 function rotationChange(rotx, roty, rotz) {
-  if (rotz > 340 && !soundPlaying) {
-    playAudio();
-    soundPlaying = true;
+  if (rotz > 340) {
+    if (!soundPlaying) {
+      playAudio();
+      soundPlaying = true;
+    }
   } else {
     soundPlaying = false;
   }
