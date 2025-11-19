@@ -49,13 +49,17 @@ bells.createDSP(audioContext, 1024).then((node) => {
 //
 //==========================================================================================
 
+let soundPlaying = false;
 function accelerationChange(accx, accy, accz) {
   // playAudio()
 }
 
 function rotationChange(rotx, roty, rotz) {
-  if (rotz > 340) {
+  if (rotz > 340 && !soundPlaying) {
     playAudio();
+    soundPlaying = true;
+  } else {
+    soundPlaying = false;
   }
 }
 
