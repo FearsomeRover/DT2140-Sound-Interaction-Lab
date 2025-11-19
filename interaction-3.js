@@ -53,14 +53,14 @@ function accelerationChange(accx, accy, accz) {
   // playAudio()
 }
 
-let doorOpened = false;
+let startReached = false;
 function rotationChange(rotx, roty, rotz) {
-  if (rotz > 178 && rotz < 182 && !doorOpened) {
+  if (rotx < 5 && rotx > -5) {
+    startReached = true;
+  }
+  if (startReached && rotx > 40) {
     playAudio();
-    doorOpened = true;
-    setTimeout(() => {
-      doorOpened = false;
-    }, 2000);
+    startReached = false;
   }
 }
 
