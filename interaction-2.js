@@ -12,7 +12,7 @@ let dspNodeParams = null;
 let jsonParams = null;
 
 // Change here to ("tuono") depending on your wasm file name
-const dspName = "bells";
+const dspName = "swoosh";
 const instance = new FaustWasm2ScriptProcessor(dspName);
 
 // output to window or npm package module
@@ -25,7 +25,7 @@ if (typeof module === "undefined") {
 }
 
 // The name should be the same as the WASM file, so change tuono with brass if you use brass.wasm
-bells.createDSP(audioContext, 1024).then((node) => {
+swoosh.createDSP(audioContext, 1024).then((node) => {
   dspNode = node;
   dspNode.connect(audioContext.destination);
   console.log("params: ", dspNode.getParams());
@@ -49,30 +49,15 @@ bells.createDSP(audioContext, 1024).then((node) => {
 //
 //==========================================================================================
 
-let soundPlaying = false;
 function accelerationChange(accx, accy, accz) {
-  // playAudio()
+  const totalAcc = Math.sqrt(accx * accx + accy * accy + accz * accz);
+  playAudio(totalAcc / 3500);
 }
 
-function rotationChange(rotx, roty, rotz) {
-  console.log(rotx, roty, rotz);
-  if (rotx > 120 && rotx < 150 && roty > 70 && roty < 100 && !soundPlaying) {
-    playAudio();
-    soundPlaying = true;
-  } else {
-    soundPlaying = false;
-  }
-}
+function rotationChange(rotx, roty, rotz) {}
 
 function mousePressed() {
   // playAudio()
-  console.log(soundPlaying);
-  if (!soundPlaying) {
-    playAudio();
-    soundPlaying = true;
-  } else {
-    soundPlaying = false;
-  }
   // Use this for debugging from the desktop!
 }
 
@@ -108,21 +93,14 @@ function getMinMaxParam(address) {
 //
 //==========================================================================================
 
-function playAudio() {
+function playAudio(force) {
   if (!dspNode) {
     return;
   }
   if (audioContext.state === "suspended") {
     return;
   }
-  dspNode.setParamValue("/englishBell/gate", 1);
-  setTimeout(() => {
-    dspNode.setParamValue("/englishBell/gate", 0);
-  }, 100);
-}
-
-function stopAudio() {
-  dspNode.setParamValue("/englishBell/gate", 0);
+  dspNode.setParamValue("/wind/force", force);
 }
 
 //==========================================================================================
