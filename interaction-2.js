@@ -55,13 +55,24 @@ function accelerationChange(accx, accy, accz) {
 }
 
 function rotationChange(rotx, roty, rotz) {
-  if (rotx > 130 && rotx < 140 && roty > 80 && roty < 90) {
+  console.log(rotx, roty, rotz);
+  if (rotx > 130 && rotx < 140 && roty > 80 && roty < 90 && !soundPlaying) {
     playAudio();
+    soundPlaying = true;
+  } else {
+    soundPlaying = false;
   }
 }
 
 function mousePressed() {
   // playAudio()
+  console.log(soundPlaying);
+  if (!soundPlaying) {
+    playAudio();
+    soundPlaying = true;
+  } else {
+    soundPlaying = false;
+  }
   // Use this for debugging from the desktop!
 }
 
