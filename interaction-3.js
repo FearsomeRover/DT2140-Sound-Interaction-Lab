@@ -101,15 +101,17 @@ function getMinMaxParam(address) {
 //
 //==========================================================================================
 
-function playAudio(pressure) {
+function playAudio() {
   if (!dspNode) {
     return;
   }
   if (audioContext.state === "suspended") {
     return;
   }
-  console.log(pressure);
-  dspNode.setParamValue("/brass/blower/pressure", pressure);
+  dspNode.setParamValue("/door/door", 1);
+  setTimeout(() => {
+    dspNode.setParamValue("/door/door", 0);
+  }, 100);
 }
 
 //==========================================================================================
