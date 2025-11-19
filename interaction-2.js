@@ -50,7 +50,12 @@ lastv.createDSP(audioContext, 1024).then((node) => {
 //
 //==========================================================================================
 
-function accelerationChange(accx, accy, accz) {}
+function accelerationChange(accx, accy, accz) {
+  let totalAcc = Math.sqrt(accx * accx + accy * accy + accz * accz);
+  if (totalAcc > 400) {
+    playAudio(totalAcc / 400); // normalize to 0.0 - 1.0
+  }
+}
 
 function rotationChange(rotx, roty, rotz) {}
 
