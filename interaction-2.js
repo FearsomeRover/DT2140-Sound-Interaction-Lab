@@ -12,7 +12,7 @@ let dspNodeParams = null;
 let jsonParams = null;
 
 // Change here to ("tuono") depending on your wasm file name
-const dspName = "swoosh";
+const dspName = "lastv";
 const instance = new FaustWasm2ScriptProcessor(dspName);
 
 // output to window or npm package module
@@ -25,13 +25,14 @@ if (typeof module === "undefined") {
 }
 
 // The name should be the same as the WASM file, so change tuono with brass if you use brass.wasm
-swoosh.createDSP(audioContext, 1024).then((node) => {
+lastv.createDSP(audioContext, 1024).then((node) => {
   dspNode = node;
   dspNode.connect(audioContext.destination);
   console.log("params: ", dspNode.getParams());
   const jsonString = dspNode.getJSON();
   jsonParams = JSON.parse(jsonString)["ui"][0]["items"];
   dspNodeParams = jsonParams;
+
   // const exampleMinMaxParam = findByAddress(dspNodeParams, "/thunder/rumble");
   // // ALWAYS PAY ATTENTION TO MIN AND MAX, ELSE YOU MAY GET REALLY HIGH VOLUMES FROM YOUR SPEAKERS
   // const [exampleMinValue, exampleMaxValue] = getParamMinMax(exampleMinMaxParam);
@@ -49,16 +50,15 @@ swoosh.createDSP(audioContext, 1024).then((node) => {
 //
 //==========================================================================================
 
-function accelerationChange(accx, accy, accz) {
-  const totalAcc = Math.sqrt(accx * accx + accy * accy + accz * accz);
-  playAudio(totalAcc / 3500);
-}
+function accelerationChange(accx, accy, accz) {}
 
 function rotationChange(rotx, roty, rotz) {}
 
 function mousePressed() {
   // playAudio()
   // Use this for debugging from the desktop!
+  playAudio(1.0);
+  console.log("Mouse pressed, playing audio");
 }
 
 function deviceMoved() {
@@ -73,7 +73,6 @@ function deviceTurned() {
 function deviceShaken() {
   shaketimer = millis();
   statusLabels[0].style("color", "pink");
-  playAudio();
 }
 
 function getMinMaxParam(address) {
@@ -94,14 +93,14 @@ function getMinMaxParam(address) {
 //
 //==========================================================================================
 
-function playAudio(force) {
+function playAudio(acc) {
   if (!dspNode) {
     return;
   }
   if (audioContext.state === "suspended") {
     return;
   }
-  dspNode.setParamValue("/wind/force", force);
+  dspNode.setParamValue("/violin/bow/velocity", acc);
 }
 
 //==========================================================================================
