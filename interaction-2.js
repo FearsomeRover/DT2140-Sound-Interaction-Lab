@@ -64,6 +64,7 @@ function mousePressed() {
 function deviceMoved() {
   movetimer = millis();
   statusLabels[2].style("color", "pink");
+  playAudio(1.0);
 }
 
 function deviceTurned() {
