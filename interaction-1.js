@@ -50,7 +50,9 @@ bubble.createDSP(audioContext, 1024).then((node) => {
 //==========================================================================================
 
 function accelerationChange(accx, accy, accz) {
-  // playAudio()
+  if (accz > 12 && accy > 12) {
+    playAudio();
+  }
 }
 
 function rotationChange(rotx, roty, rotz) {}
@@ -71,7 +73,6 @@ function deviceTurned() {
 function deviceShaken() {
   shaketimer = millis();
   statusLabels[0].style("color", "pink");
-  playAudio();
 }
 
 function getMinMaxParam(address) {
