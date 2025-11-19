@@ -101,6 +101,9 @@ function playAudio(acc) {
     return;
   }
   dspNode.setParamValue("/violin/bow/velocity", acc);
+  setTimeout(() => {
+    dspNode.setParamValue("/violin/bow/velocity", 0.0);
+  }, 500);
 }
 
 //==========================================================================================
